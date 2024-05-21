@@ -49,7 +49,7 @@ writeToProfile('drake2', [
         s: [0, 'shift'],
         d: ['open_bracket', 'shift'],
         f: ['close_bracket', 'shift'],
-        tab: ['tab'],
+        tab: ['escape'],
         caps_lock: ['caps_lock'],
         // right_shift: ['semicolon', 'shift'],
       })((k, v) =>
