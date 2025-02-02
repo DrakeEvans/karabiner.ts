@@ -103,7 +103,7 @@ writeToProfile('drake2', [
   ]),
   rule('Set slash as left shift').manipulators([
     // config key mappings
-    map('slash').to('right_shift').toIfAlone('slash'),
+    // map('slash').to('right_shift').toIfAlone('slash'),
     mapSimultaneous(
       ['j', 'k'],
       {
@@ -117,26 +117,7 @@ writeToProfile('drake2', [
       .modifiers('??')
       .to('equal_sign'),
 
-    mapSimultaneous(
-      ['left_shift', 'semicolon'],
-      {
-        detect_key_down_uninterruptedly: false,
-        key_down_order: 'insensitive',
-        key_up_order: 'insensitive',
-        key_up_when: 'any',
-      },
-      200,
-    ).to('semicolon', 'shift'),
-    mapSimultaneous(
-      ['right_shift', 'semicolon'],
-      {
-        detect_key_down_uninterruptedly: true,
-        key_down_order: 'insensitive',
-        key_up_order: 'insensitive',
-        key_up_when: 'any',
-      },
-      200,
-    ).to('semicolon', 'shift'),
+
     mapSimultaneous(
       ['j', 'l'],
       {
