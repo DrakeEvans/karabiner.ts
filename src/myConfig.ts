@@ -33,10 +33,10 @@ writeToProfile('drake2', [
     .modifiers({ optional: 'any' })
     .manipulators([
       withMapper({
-        j: 'left_arrow',
-        k: 'down_arrow',
+        h: 'left_arrow',
+        j: 'down_arrow',
+        k: 'up_arrow',
         l: 'right_arrow',
-        i: 'up_arrow',
         spacebar: 'hyphen',
       })((k, v) => map(k).to(v as ToKeyCode)),
       withMapper({
@@ -51,7 +51,7 @@ writeToProfile('drake2', [
         f: ['close_bracket', 'shift'],
         tab: ['escape'],
         caps_lock: ['caps_lock'],
-        // right_shift: ['semicolon', 'shift'],
+        c: ['grave_accent_and_tilde', 'shift'],
       })((k, v) =>
         map(k).to(v[0] as ToKeyParam, v[1] as ModifierParam | undefined),
       ),
@@ -95,13 +95,13 @@ writeToProfile('drake2', [
     ]),
   simlayer('f', 'f_down').manipulators([
     withMapper({
-      j: ['delete_or_backspace'],
-      k: ['delete_forward'],
+      h: ['delete_or_backspace'],
+      l: ['delete_forward'],
     } as Record<any, any>)((k, v) =>
       map(k as FromKeyParam).to(v[0] as ToKeyParam, v[1]),
     ),
   ]),
-  rule('Set slash as left shift').manipulators([
+  rule('jk as equal_sign').manipulators([
     // config key mappings
     // map('slash').to('right_shift').toIfAlone('slash'),
     mapSimultaneous(
