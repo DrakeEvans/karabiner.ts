@@ -76,6 +76,12 @@ writeToProfile('drake2', [
       } as Record<any, any>)((k, v) =>
         map(k as FromKeyParam).to(v[0] as ToKeyParam, v[1]),
       ),
+      map('return_or_enter').to('return_or_enter', [
+        'control',
+        'command',
+        'option',
+        'shift',
+      ]),
     ]),
   layer('tab', 'tab_down')
     .configKey((v) => v.toIfHeldDown('vk_none', null, { hold_down_milliseconds: 1 }))  
