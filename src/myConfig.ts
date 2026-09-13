@@ -29,7 +29,40 @@ writeToProfile('drake2', [
   // layer('/', 'symbol-mode').manipulators([
 
   //   //     / + [ 1    2    3    4    5 ] =>
-  layer('semicolon', 'semicolon-down')
+
+  layer('caps_lock', 'caps_lock-down')
+  .configKey((v) => v.toIfAlone('vk_none'), true )
+  .modifiers({ optional: 'any' })
+    .manipulators([
+      // caps_lock remap with shift
+      withMapper({
+        y: [6, 'shift'],
+        u: [7, 'shift'],
+        i: [8, 'shift'],
+        o: ['backslash', 'shift'],
+        p: [0, 'shift'],
+        j: ['open_bracket'],
+        k: ['close_bracket'],
+        spacebar: ['hyphen', 'shift'],
+        quote: ['grave_accent_and_tilde'],
+        slash: ['backslash'],
+      } as Record<any, any>)((k, v) =>
+        map(k as FromKeyParam).to(v[0] as ToKeyParam, v[1]),
+      ),
+      map('semicolon').to('semicolon', [
+        'control',
+        'command',
+        'option',
+        'shift',
+      ]),
+      map('return_or_enter').to('return_or_enter', [
+        'control',
+        'command',
+        'option',
+        'shift',
+      ]),
+    ]),
+      layer('semicolon', 'semicolon-down')
     .modifiers({ optional: 'any' })
     .manipulators([
       withMapper({
@@ -55,32 +88,6 @@ writeToProfile('drake2', [
       })((k, v) =>
         map(k).to(v[0] as ToKeyParam, v[1] as ModifierParam | undefined),
       ),
-    ]),
-  layer('caps_lock', 'caps_lock-down')
-  .configKey((v) => v.toIfAlone('vk_none'), true )
-  .modifiers({ optional: 'any' })
-    .manipulators([
-      // caps_lock remap with shift
-      withMapper({
-        y: [6, 'shift'],
-        u: [7, 'shift'],
-        i: [8, 'shift'],
-        o: ['backslash', 'shift'],
-        p: [0, 'shift'],
-        j: ['open_bracket'],
-        k: ['close_bracket'],
-        spacebar: ['hyphen', 'shift'],
-        quote: ['grave_accent_and_tilde'],
-        slash: ['backslash'],
-      } as Record<any, any>)((k, v) =>
-        map(k as FromKeyParam).to(v[0] as ToKeyParam, v[1]),
-      ),
-      map('return_or_enter').to('return_or_enter', [
-        'control',
-        'command',
-        'option',
-        'shift',
-      ]),
     ]),
   layer('tab', 'tab_down')
     .configKey((v) => v.toIfHeldDown('vk_none', null, { hold_down_milliseconds: 1 }))  
