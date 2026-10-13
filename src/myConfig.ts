@@ -50,6 +50,7 @@ writeToProfile('drake2', [
       } as Record<any, any>)((k, v) =>
         map(k as FromKeyParam).to(v[0] as ToKeyParam, v[1]),
       ),
+      map('b').to('b', 'Hyper'),
       // caps_lock + ; toggles numpad mode
       map('semicolon')
         .condition(ifVar('numpad-mode', 1))
