@@ -15,6 +15,7 @@ import {
   ModifierParam,
   mapSimultaneous,
   mapDoubleTap,
+  ifVar,
 } from './index'
 
 // ! Change '--dry-run' to your Karabiner-Elements Profile name.
@@ -49,12 +50,15 @@ writeToProfile('drake2', [
       } as Record<any, any>)((k, v) =>
         map(k as FromKeyParam).to(v[0] as ToKeyParam, v[1]),
       ),
-      map('semicolon').to('semicolon', [
-        'control',
-        'command',
-        'option',
-        'shift',
-      ]),
+      // caps_lock + ; toggles numpad mode
+      map('semicolon')
+        .condition(ifVar('numpad-mode', 1))
+        .toVar('numpad-mode', 0)
+        .toRemoveNotificationMessage('numpad-mode'),
+      map('semicolon')
+        .condition(ifVar('numpad-mode', 1).unless())
+        .toVar('numpad-mode', 1)
+        .toNotificationMessage('numpad-mode', 'Numpad mode'),
       map('return_or_enter').to('return_or_enter', [
         'control',
         'command',
@@ -105,6 +109,29 @@ writeToProfile('drake2', [
         map(k as FromKeyParam).to(v[0] as ToKeyParam, v[1]),
       ),
     ]),
+  rule('numpad mode', ifVar('numpad-mode', 1)).manipulators([
+    withMapper({
+      q: 1,
+      w: 2,
+      e: 3,
+      r: 4,
+      t: 5,
+      y: 6,
+      u: 7,
+      i: 8,
+      o: 9,
+      p: 0,
+      j: 4,
+      k: 5,
+      l: 6,
+      m: 1,
+      comma: 2,
+      period: 3,
+      spacebar: 0,
+    } as Record<any, any>)((k, v) =>
+      map(k as FromKeyParam).to(v as ToKeyParam),
+    ),
+  ]),
   simlayer('f', 'f_down').manipulators([
     withMapper({
       h: ['delete_or_backspace'],
